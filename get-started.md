@@ -284,12 +284,12 @@ A negative value can also be used for 'always on' instruments like reverberation
 
 ## Your first synthesiser
 
-Now that the basics of the Csound language have been outlined, it's time to look at creating a
+Now that the basics of the Csound language have been outlined, it's time to create a
 simple instrument. The opcodes used in this simple instrument are [vco2](docs/manual/vco2.html),
 [madsr](docs/manual/madsr.html), [moogladder](docs/manual/moogladder.html) and [out](docs/manual/out.html).
 
 The vco2 opcode models a voltage controlled oscillator. It provides users with an effective way of
-generating band-limited waveforms and can be the building blocks of many a synthesiser. In simpler terms, 
+generating band-limited waveforms and can be the building block of many synthesisers. In simpler terms, 
 it produces a particular sound with a determined timbre, amplitude and frequency.
 Its syntax, taken from the Csound reference manual, is given as:
 
@@ -297,7 +297,7 @@ Its syntax, taken from the Csound reference manual, is given as:
 ares vco2 kamp, kcps [, imode] [, kpw] [, kphs] [, inyx]
 </code></pre>
 
-Square brackets around an input argument means that argument is optional and can be left out. 
+Square brackets around an input argument mean that the argument is optional and can be left out. 
 This means that for learning purposes we can write this opcode in a simpler way:
 
 <pre><code data-language="csound">
@@ -319,7 +319,7 @@ given below. The **out** opcode is used to output an a-rate signal as audio.
 
 <pre><code data-language="csound">
 instr 1
-aOut vco2 1, 440
+aOut vco2 0.2, 440
 out aOut
 endin
 </code></pre>
@@ -331,13 +331,13 @@ section like so:
 i 1 0 100
 </code></pre>
 
-A Csound score isn't all that different to a traditional musical score. In a traditional
-score, dots are used to provide information to the musician. In Csound the dots are replaced with
-i-statements, or instrument statements. Each i-statement must contain at least 3 so-called p-fields, 
+A Csound score quite similar to to a traditional musical score. In a traditional
+score, notes are used to provide information to the musician. In Csound the notes are replaced by
+i-statements, or instrument statements. Each i-statement must contain at least three p-fields, 
 which are separated by spaces.
 The first 3 p-fields have a fixed meaning. They always give the instrument name or number, its start
 time in seconds, and its duration in seconds. The following i-statement instructs instrument 1 to
-start playing after 0 seconds and continue playing for 100 second.
+start playing after 0 seconds and continue playing for 100 seconds.
 
 <pre><code data-language="csound">
 ;p-fields:
@@ -345,7 +345,7 @@ start playing after 0 seconds and continue playing for 100 second.
 i 1 0 100
 </code></pre>
 
-One obvious limitation here is that the instrument always plays a frequency of 440. The simplest way
+One obvious limitation here is that the instrument always plays a frequency of 440Hz. The simplest way
 to address this problem is by adding an extra p-field to the i-statement.
 
 <pre><code data-language="csound">
@@ -354,8 +354,8 @@ i1 0 100 500
  
 With the new p-field in place, the instrument block can be modified to access that value using a
 special i-rate variable named p4. Whenever Csound starts reading through the code, it will replace
-all instances of p4 with the value from the i-statement. Here is a full example that will play back
-3 notes, all with a unique pitch and starting time.
+all instances of p4 with the value from the score-statement. Here is a full example that will play back
+three notes, all with a unique pitch and starting time.
 
 <pre><code data-language="csound">
 &lt;CsOptions&gt;
@@ -371,9 +371,9 @@ all instances of p4 with the value from the i-statement. Here is a full example 
 
 ; defines the first instrument
 instr 1
-; variable for output,  instrument type,  amplitude,  pitch input 
-;                                                     as parameter 4 in the score
-  aOut                  vco2              1,          p4
+; variable for output,  opcode,           amplitude,    pitch input 
+;                                                       as parameter 4 in the score
+  aOut                  vco2              0.2,          p4
 ; routes the instrument to default output
 out aOut
 endin
@@ -381,15 +381,15 @@ endin
 &lt;/CsInstruments&gt;
 &lt;CsScore&gt;
 ; plays three notes in succession
-; instrument  time to play at   length to play  frequency to play
-  i1          0                 1               100
-  i1          1                 1               200
-  i1          2                 1               300
+; instrument  time to play at   duration to play  frequency to play
+  i1          0                 1                 100
+  i1          1                 1                 200
+  i1          2                 1                 300
 &lt;/CsScore&gt;
 &lt;/CsoundSynthesizer&gt;
 </code></pre>
 
-i-statements may contain a huge number of p-fields and each one can be accessed in the instrument
+Score-statements may contain a huge number of p-fields and each one can be accessed in the instrument
 block using its associated p-field variable. Here is the same instrument, only this time both the
 amplitude and pitch are being controlled via the score. Named variables have been added to hold the
 values of p4 and p5. While not necessary, it is good to get into a habit of using clear and well
