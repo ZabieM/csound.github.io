@@ -232,7 +232,7 @@ In this case a and b are Boolean expressions using comparison or logical operato
 The Syntax to use the *if* statement is as follows: 
 
 <pre><code data-language="csound">
-if (a condition b) then 
+if (x condition y) then 
   ...code...
 [else
   ...code...]
@@ -243,11 +243,11 @@ The code in square brackets is optional.
 In case one wants to determine different results for more than one condition, the syntax is as follows:
 
 <pre><code data-language="csound">
-if (a condition b) then
+if (x condition y) then
   ...code...
-elseif (a condition b) then
+elseif (x condition y) then
   ...code...
-elseif (a condition b) then
+elseif (x condition y) then
   ...code...
 else
   ...code...
